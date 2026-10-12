@@ -1,0 +1,4 @@
+mcp==2.3.0
+pydantic==2.13.5
+httpx2==2.13.1
+pymupdf>=1.24
