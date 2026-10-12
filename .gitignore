@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# 运行时数据（PDF/文献库/解析缓存，不该进版本库）
+data/
+
+# 环境变量与密钥
+.env
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
