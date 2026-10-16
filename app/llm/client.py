@@ -103,6 +103,17 @@ def retryable(e: Exception) -> bool:
     name = type(e).__name__
     return any(h in name for h in RETRYABLE_HINTS)
 
+async def aclose() -> None:
+    """关闭单例并复位。D0 异步版的对称出口：httpx 的连接池挂在事件
+    循环上，循环关闭后 GC 才触发 transport.__del__ 会撒
+    'Event loop is closed' 噪音（Windows Proactor 上必现）——必须趁循环
+    还活着时显式关。测试进程收尾、pytest fixture teardown 调它。
+    """
+    global _client
+    if _client is not None:
+        await _client.close()
+        _client = None
+
 async def safe_call(fn, *args, **kwargs):
     """D4 async 版：连接类抖动重试一次；仍失败返回 None 并打印真实异常。"""
     last: Exception | None = None
