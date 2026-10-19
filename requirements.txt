@@ -7,3 +7,9 @@ openai>=1.60
 langgraph==1.2.11                    # Agent 编排（StateGraph/interrupt/SqliteSaver）
 langgraph-checkpoint-sqlite==3.1.1   # checkpoint 持久化（确认门断点续跑）
 aiosqlite>=0.20
+
+# --- RAG 检索（M3，版本沿用 ShopMate 实测组合） ---
+chromadb==1.5.9          # 向量库，paper_knowledge + memory 两个 collection
+FlagEmbedding==1.4.2     # BGE-M3 向量模型；torch/transformers 由它带入（ShopMate 缓存已存在，零下载）
+rank-bm25==0.2.2         # BM25 关键词检索
+jieba==0.42.1            # 中文分词（BM25 两侧统一口径）
